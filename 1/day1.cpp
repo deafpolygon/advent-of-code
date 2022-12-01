@@ -1,112 +1,113 @@
 #include <iostream>
 #include <fstream>
 #include <list>
-#include <string>
 
 using namespace std;
 
-//declare stuff
 struct Elf;
 void part1(list<Elf>);
 void part2(list<Elf>);
 list<Elf> process_input();
 
+struct Elf {
+    int id = 0;
+    int total = 0;
+    list<int> snacks;
+};
+
 // main func
 int main() {
 
     list<Elf> elves = process_input();
-//    part1(elves);
+
+    part1(elves);
     part2(elves);
 
     return 0;
 }
 
-struct Elf {
-    int id;
-    list<int> snacks;
-};
-
-
+//
 // processes input, returns elves
+//
 list<Elf> process_input() {
-
-    list<Elf> elves;
-
     ifstream inputfile;
-    string line;
-
     inputfile.open("input", ios::in);
 
-    //read files
-    if (!inputfile) { //if file doesn't exist
-        cout << "No such file!";
+    if (!inputfile) { 
+        cout << "Can't read input";
+        exit(1);
     }
-    else {
-        int elfnum = 0;
 
-        Elf elf;
-        elf.id = elfnum;
-        while (getline(inputfile, line)) {
+    list<Elf> elves;
+    string line;
 
-            if (line == "") {
-                //add the pre-existing elf to the list
-                elves.push_back(elf);
+    Elf elf;
+    int elfnum = 0;
 
-                //make a new elf
-                elfnum = elfnum + 1;
-                Elf temp;
-                temp.id = elfnum;
-                elf = temp; //replace previous elf
-                
-            }
-            else {
-                //convert line into an integer
-                int calorie = stoi(line);
-                elf.snacks.push_back(calorie);
-            }
+    while (getline(inputfile, line)) {
+        if (line.empty()) {
+            int total = 0;
+
+            for (auto snack : elf.snacks) 
+                total += snack;
+
+            elf.total = total;
+            elves.push_back(elf);
+
+            elf = {}; //re-init
+            elf.id = ++elfnum;
+            continue;
 
         }
+
+        elf.snacks.push_back( stoi(line) );
+
     }
     inputfile.close();
     return elves;
 }
 
+//
+// for sorting a list of Elves
+//
+bool compare_total (const Elf a, const Elf b) {
+    return (a.total > b.total);
+}
+
+//
 // part 1 solution
+//
 void part1(list<Elf> elves) {
 
-    cout << "Part One" << endl << endl;
+    cout << "part 1" << endl << endl;
 
-    int elf_with_the_most = -1;
-    int maximum = 0;
-    for (auto const& elf : elves) {
+    elves.sort(compare_total);
 
-        int total = 0;
-        for (auto const& energy : elf.snacks) {
-            total = total + energy;
-        }
-        if (total > maximum) {
-            maximum = total;
-            elf_with_the_most = elf.id;
-        }
-    }
-
-    cout << "The elf with the most: " << elf_with_the_most << endl;
-    cout << "They had a total of : " << maximum << " energy" << endl;
+    cout << "The elf with the most: " << elves.front().id << endl;
+    cout << "They had a total of : " << elves.front().total << " energy" << endl;
+    cout << endl;
 
 }
 
+//
 // part 2 solution
+//
 void part2(list<Elf> elves) {
     cout << "part 2" << endl << endl;
 
-    int ranked [elves.size()];
-    
-    for (auto const& elf : elves) {
+    //sort by total (descending)
+    elves.sort(compare_total);
 
-
+    int top3total = 0;
+    cout << "top three elves are: " << endl << endl;
+    for(int i = 2; i >= 0; i--) {
+        cout << "- elf #" << elves.front().id << " with " << elves.front().total << endl;
+        top3total += elves.front().total;
+        elves.pop_front();
     }
 
-
+    cout << endl << "total of three: " << top3total << endl;
+    cout << endl;
 
 }
 
