@@ -26,13 +26,6 @@ int main() {
 }
 
 //
-// for sorting elves
-//
-bool compare_total (const Elf a, const Elf b) {
-    return (a.total > b.total);
-}
-
-//
 // processes input, returns elves
 //
 vector<Elf> process_input() {
@@ -67,7 +60,6 @@ vector<Elf> process_input() {
     }
     inputfile.close();
 
-//    sort(elves.begin(), elves.end(), compare_total); 
     sort(elves.begin(), elves.end(), [](auto a, auto b) { return (a.total > b.total); } );
     return elves;
 }
