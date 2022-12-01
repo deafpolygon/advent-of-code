@@ -1,13 +1,15 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 #include <list>
 
 using namespace std;
 
 struct Elf;
-void part1(list<Elf>);
-void part2(list<Elf>);
-list<Elf> process_input();
+void part1(const vector<Elf> &elves);
+void part2(const vector<Elf> &elves);
+vector<Elf> process_input();
 
 struct Elf {
     int id = 0;
@@ -18,7 +20,7 @@ struct Elf {
 // main func
 int main() {
 
-    list<Elf> elves = process_input();
+    vector<Elf> elves = process_input();
 
     part1(elves);
     part2(elves);
@@ -27,9 +29,16 @@ int main() {
 }
 
 //
+// for sorting elves
+//
+bool compare_total (const Elf a, const Elf b) {
+    return (a.total > b.total);
+}
+
+//
 // processes input, returns elves
 //
-list<Elf> process_input() {
+vector<Elf> process_input() {
     ifstream inputfile;
     inputfile.open("input", ios::in);
 
@@ -38,7 +47,7 @@ list<Elf> process_input() {
         exit(1);
     }
 
-    list<Elf> elves;
+    vector<Elf> elves;
     string line;
 
     Elf elf;
@@ -48,7 +57,7 @@ list<Elf> process_input() {
         if (line.empty()) {
             int total = 0;
 
-            for (auto snack : elf.snacks) 
+            for (const auto snack : elf.snacks) 
                 total += snack;
 
             elf.total = total;
@@ -64,27 +73,19 @@ list<Elf> process_input() {
 
     }
     inputfile.close();
-    return elves;
-}
 
-//
-// for sorting a list of Elves
-//
-bool compare_total (const Elf a, const Elf b) {
-    return (a.total > b.total);
+    sort(elves.begin(), elves.end(), compare_total); 
+    return elves;
 }
 
 //
 // part 1 solution
 //
-void part1(list<Elf> elves) {
+void part1(const vector<Elf> &elves) {
 
     cout << "part 1" << endl << endl;
-
-    elves.sort(compare_total);
-
-    cout << "The elf with the most: " << elves.front().id << endl;
-    cout << "They had a total of : " << elves.front().total << " energy" << endl;
+    cout << "The elf with the most: " << elves[0].id << endl;
+    cout << "They had a total of : " << elves[0].total << " energy" << endl;
     cout << endl;
 
 }
@@ -92,18 +93,14 @@ void part1(list<Elf> elves) {
 //
 // part 2 solution
 //
-void part2(list<Elf> elves) {
+void part2(const vector<Elf> &elves) {
     cout << "part 2" << endl << endl;
-
-    //sort by total (descending)
-    elves.sort(compare_total);
 
     int top3total = 0;
     cout << "top three elves are: " << endl << endl;
-    for(int i = 2; i >= 0; i--) {
-        cout << "- elf #" << elves.front().id << " with " << elves.front().total << endl;
-        top3total += elves.front().total;
-        elves.pop_front();
+    for(int i = 0; i < 3; i++) {
+        top3total += elves[i].total;
+        cout << "- elf #" << elves[i].id << " with " << elves[i].total << endl;
     }
 
     cout << endl << "total of three: " << top3total << endl;
