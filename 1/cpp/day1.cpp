@@ -30,7 +30,7 @@ int main() {
 //
 vector<Elf> process_input() {
     ifstream inputfile;
-    inputfile.open("input", ios::in);
+    inputfile.open("../input", ios::in);
 
     if (!inputfile) {
         cout << "Can't read input"; 
