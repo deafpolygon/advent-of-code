@@ -1,0 +1,10 @@
+---
+BasedOnStyle: Google
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+IndentWidth: 2
+---
+#Language: Cpp
+#DerivePointerAlignment: false
+#PointerAlignment: Left
+
