@@ -6,6 +6,7 @@
 #include <tuple>
 #include <vector>
 
+
 using namespace std;
 void part1();
 void part2();
@@ -83,7 +84,8 @@ void part1() {
     string c2 = line.substr(line.length() / 2);
     sum += getpriority(getcommon(vector<string>{ c1, c2})[0]);
   }
-  cout << "part1 sum of priorities: " << sum << endl;
+  print("part1 sum of priorities: {0}\n", sum);
+  // cout << "part1 sum of priorities: " << sum << endl;
 }
 
 //

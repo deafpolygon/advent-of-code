@@ -10,7 +10,7 @@ List<int>? depths = new();
 
 try
 {
-    using (var sr = new StreamReader(@"input.txt"))
+    using (var sr = new StreamReader(@"input"))
     {
         String data = "";
         data = sr.ReadToEnd();
