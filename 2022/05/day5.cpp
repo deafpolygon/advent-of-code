@@ -1,10 +1,11 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <regex>
 #include <sstream>
 #include <tuple>
 #include <vector>
+#include <chrono>
+#include <iomanip>
 
 using namespace std;
 vector<string> split(const string &, char);
@@ -14,9 +15,15 @@ void part1b(vector<vector<char>>, vector<string>);
 void part2(vector<vector<char>>, vector<string>);
 
 int main() {
+  auto start = chrono::high_resolution_clock::now();
   auto [stacks, commands] = process_input("input.txt");
+//  part1(stacks, commands);
   part1b(stacks, commands);
   part2(stacks, commands);
+  auto end = chrono::high_resolution_clock::now();
+  double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+  time_taken *= 1e-9;
+  cout << "Time taken (s): " << fixed << time_taken << setprecision(9) << endl;
   return 0;
 }
 
@@ -56,8 +63,9 @@ tuple<vector<vector<char>>, vector<string>> process_input(const string &fname) {
     }
   }
 
-  int linepos = 0;
   vector<vector<char>> stacks;
+
+  int linepos = 0;
   for (const auto &line : cratedata) {
     int vecpos = 0;
     for (uint i = 1; i < line.size(); i = i + 4) {
