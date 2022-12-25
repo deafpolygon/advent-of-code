@@ -1,5 +1,6 @@
 ### Misc
 .aoc.session
+.vscode
 
 ### C ###
 # Prerequisites
@@ -632,3 +633,4 @@ cython_debug/
 poetry.toml
 
 
+.vscode/launch.json
