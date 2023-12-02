@@ -5,7 +5,7 @@ Working on the 2023 puzzles this year. Learning JavaScript on Node v21.2.0 for t
 | Day | Status | Languages |
 | -- | ----- | ------- |
 | 1 | Solved | JavaScript |
-| 2 | In progress | JavaScript |
+| 2 | Solved | JavaScript |
 
 
 
