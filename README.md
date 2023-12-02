@@ -1,4 +1,4 @@
-# Advent of Code
+# 🎄Advent of Code 🎅
 
 Working on the 2023 puzzles this year. Learning JavaScript on Node v21.2.0 for the first time. I may work the same puzzles on other languages for fun. Or switch to something else!
 
