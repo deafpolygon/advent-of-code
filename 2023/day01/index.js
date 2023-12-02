@@ -7,15 +7,15 @@ partOne();
 partTwo();
 
 function getNumberPair(value) {
-    let numOnly = value.replace(/\D/g, "");
-    return Number(numOnly.slice(0,1) + numOnly.slice(-1));
+    let numOnly = value.replace(/\D/g, ""); 
+    return Number(numOnly.slice(0,1) + numOnly.slice(-1)); 
 }
 
 function filterStringForPuzzle(value) {    
     let processing = value;
     //bit of a cheat, but it works for this puzzle
     validNumberString.forEach(function(validnum, idx) {
-        const replacement = `${validnum.slice(0,1)}${idx+1}${validnum.slice(-1)}`;
+        const replacement = `${validnum.slice(0,1)}${idx+1}${validnum.slice(-1)}`; // two -> t2o, seven -> s7n
         processing = processing.replaceAll(validnum, replacement);
     });
     return processing;
